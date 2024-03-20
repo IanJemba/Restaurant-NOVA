@@ -81,8 +81,8 @@
             <a href="homepage.php">Home</a>
             <a href="homepage.php">Home</a>
             <a href="homepage.php">Home</a>
-            <a href="homepage.php">Home</a>
-            <a href="homepage.php">Home</a>
+            <a href="loginpage.php">Login</a>
+            <a href="gebruiker_toevoegen.php">Add User</a>
         </nav>
     </header>
 </body>
