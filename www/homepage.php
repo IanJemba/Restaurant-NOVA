@@ -1,7 +1,5 @@
-<?php
-require 'header.php';
+<?php require 'header.php'; ?>
 
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,6 +38,24 @@ require 'header.php';
             font-size: 1.5rem;
             margin-bottom: 40px;
         }
+
+        .welcome-content button,
+        .welcome-content button a {
+            background-color: orangered;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .welcome-content button:hover,
+        .welcome-content button a:hover {
+            background-color: #ff7043;
+        }
     </style>
 </head>
 
@@ -48,8 +64,13 @@ require 'header.php';
         <div class="welcome-content">
             <h1>Welcome to Viva La Vida</h1>
             <p>Experience the authentic flavors of Mexico!</p>
+            <h2>Want to take a look at our Meals?</h2>
+            <button><a href="meals.php">Meals</a></button>
+            <h2>Or Check out our menu! </h2>
+            <button><a href="menukaart.php">Menu</a></button>
         </div>
     </div>
+    <?php require 'footer.php' ?>
 </body>
 
 </html>

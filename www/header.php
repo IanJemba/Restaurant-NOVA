@@ -33,8 +33,8 @@
     }
 
     .name {
-        display: flex;
         align-items: center;
+        margin-right: 900px;
     }
 
     .name h1 {
@@ -61,7 +61,7 @@
     }
 
     nav a:hover {
-        color: orangered;
+        color: #ff7043;
     }
 </style>
 
@@ -71,8 +71,10 @@
             <img src="https://static.vecteezy.com/system/resources/previews/024/603/343/original/mexican-restaurant-logo-with-a-combination-of-a-skull-sombrero-hat-and-herbs-in-vintage-style-vector.jpg" alt="Logo">
         </div>
         <div class="name">
-            <h1 style="color: whitesmoke;">Viva La</h1>
-            <h1 style="color: gray;">Vida</h1>
+            <strong>
+                <h1 style="color: #ff7043;">Viva</h1>
+            </strong>
+            <h1 style="color: whitesmoke ;">LaVida</h1>
         </div>
         <nav>
             <a href="homepage.php">Home</a>
