@@ -4,7 +4,7 @@ require 'database.php';
 $name = $_POST['name'];
 $adres = $_POST['address'];
 $email = $_POST['email'];
-$password = $_POST['password'];
+$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $role = $_POST['role'];
 
 $sql = "INSERT INTO Gebruiker (naam, adres, email, wachtwoord,rol) VALUES (:name, :address, :email, :password, :role)";

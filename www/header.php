@@ -79,8 +79,8 @@
         <nav>
             <a href="homepage.php">Home</a>
             <a href="homepage.php">Home</a>
-            <a href="homepage.php">Home</a>
-            <a href="homepage.php">Home</a>
+            <a href="meals.php">Meals</a>
+            <a href="add_dish.php">Add Dish</a>
             <a href="loginpage.php">Login</a>
             <a href="gebruiker_toevoegen.php">Add User</a>
         </nav>

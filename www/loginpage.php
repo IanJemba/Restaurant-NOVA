@@ -10,7 +10,7 @@
 
 <body>
 
-    <form action="login.php" method="post">
+    <form action="login_process.php" method="post">
         <h2>Login</h2>
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
