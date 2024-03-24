@@ -78,7 +78,8 @@
         </div>
         <nav>
             <a href="homepage.php">Home</a>
-            <a href="homepage.php">Home</a>
+            <a href="menu.php">Menu</a>
+            <a href="create_menu.php">Create Menu</a>
             <a href="meals.php">Meals</a>
             <a href="add_dish.php">Add Dish</a>
             <a href="loginpage.php">Login</a>
