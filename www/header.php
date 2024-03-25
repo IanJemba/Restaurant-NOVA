@@ -84,6 +84,8 @@
             <a href="add_dish.php">Add Dish</a>
             <a href="loginpage.php">Login</a>
             <a href="gebruiker_toevoegen.php">Add User</a>
+            <a href="employee_dashboard.php">Employee</a>
+
         </nav>
     </header>
 </body>
