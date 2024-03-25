@@ -1,6 +1,18 @@
 <?php
 require 'database.php';
 
+session_start();
+
+// Check if user is logged in and has employee role
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'employee') {
+    // Redirect to login page if not logged in as employee
+    header("Location: loginpage.php");
+    exit();
+}
+
+
+
+
 $sql = "SELECT * FROM Product";
 $stmt = $conn->prepare($sql);
 $stmt->execute();

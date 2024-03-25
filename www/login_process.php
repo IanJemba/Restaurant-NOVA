@@ -13,22 +13,31 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($user) {
     //if statement compare form password against $user password
-    if(password_verify($password, $user['wachtwoord']))
+    if (password_verify($password, $user['wachtwoord'])) {
 
-    session_start();
-    $_SESSION['user_id'] = $user['gebruiker_id'];
-    $_SESSION['email'] = $user['email'];
-    $_SESSION['name'] = $user['naam'];
-    $_SESSION['role'] = $user['rol'];
 
-    if ($_SESSION['role'] == 'admin') {
-        header("Location: admin_dashboard.php");
-    } elseif ($_SESSION['role'] == 'employee') {
-        header("Location: employee_dashboard.php");
-    } else {
+        session_start();
+        $_SESSION['user_id'] = $user['gebruiker_id'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['name'] = $user['naam'];
+        $_SESSION['role'] = $user['rol'];
+
+        if ($_SESSION['role'] == 'admin') {
+            header("Location: admin_dashboard.php");
+            exit;
+        }
+
+        if ($_SESSION['role'] == 'employee') {
+            header("Location: employee_dashboard.php");
+            exit;
+        }
+
         header("Location: customer_dashboard.php");
+        exit;
     }
-    exit();
-} else {
-    echo "Invalid email or password";
+
+    echo "invalid password";
+    exit;
 }
+
+echo "Invalid email";
