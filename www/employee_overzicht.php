@@ -2,8 +2,11 @@
 // Include the database connection file
 require 'database.php';
 
-// Fetch all employees from the database
-$sql = "SELECT * FROM Gebruiker WHERE rol = 'employee'";
+// Fetch all employees with their addresses from the database
+$sql = "SELECT G.naam, A.street, A.huisnummer, A.postcode, G.email, G.rol 
+        FROM Gebruiker G
+        INNER JOIN Adres A ON G.id = A.gebruiker_id
+        WHERE G.rol = 'employee'";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -35,7 +38,7 @@ $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($employees as $employee) : ?>
                 <tr>
                     <td><?php echo $employee['naam']; ?></td>
-                    <td><?php echo $employee['adres']; ?></td>
+                    <td><?php echo $employee['street'] . ' ' . $employee['huisnummer'] . ', ' . $employee['postcode']; ?></td>
                     <td><?php echo $employee['email']; ?></td>
                     <td><?php echo $employee['rol']; ?></td>
                 </tr>

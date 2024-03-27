@@ -15,8 +15,14 @@
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
 
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required>
+        <label for="street">Street:</label>
+        <input type="text" id="street" name="street" required>
+
+        <label for="huisnummer">House Number:</label>
+        <input type="text" id="huisnummer" name="huisnummer" required>
+
+        <label for="postcode">Postal Code:</label>
+        <input type="text" id="postcode" name="postcode" required>
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
