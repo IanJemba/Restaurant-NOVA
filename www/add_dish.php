@@ -1,3 +1,12 @@
+<?php
+require 'database.php';
+
+$sql = "SELECT * FROM Menugang";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+
+$menu_options = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,10 +14,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="Stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="stylesheet.css">
 </head>
 
 <body>
+    <?php require 'header.php' ?>
     <form method="post" action="add_dish_process.php">
         <h2>Add Dish</h2>
         <label for="naam">Name:</label><br>
@@ -27,11 +37,24 @@
             <option value="No">No</option>
         </select><br>
         <label for="categorie">Category:</label><br>
-        <input type="text" id="categorie" name="categorie" required><br>
+        <select id="categorie" name="categorie" required>
+            <option value="Food">Food</option>
+            <option value="Water">Water</option>
+        </select><br>
+        <label for="menu">Menu:</label><br>
+        <select id="menu" name="menu" required>
+            <?php
+            foreach ($menu_options as $menu_option) {
+                echo "<option value='" . $menu_option['naam'] . "'>" . $menu_option['naam'] . "</option>";
+            }
+            ?>
+        </select><br>
         <label for="aantal_voorraad">Stock Quantity:</label><br>
         <input type="number" id="aantal_voorraad" name="aantal_voorraad" required><br><br>
         <input type="submit" value="Submit">
     </form>
+    <?php require 'footer.php' ?>
+
 </body>
 
 </html>

@@ -1,19 +1,18 @@
 <?php
 session_start();
 
-// Check if user is logged in and has admin role
+// Redirect to login page if user is not logged in as admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    // Redirect to login page if not logged in as admin
     header("Location: loginpage.php");
     exit();
 }
 
-
-
 require 'database.php';
 
-// Fetch all users from the Gebruiker table
-$sql = "SELECT * FROM Gebruiker";
+// Fetch users with their addresses from the database
+$sql = "SELECT G.gebruiker_id, G.naam, A.street, A.huisnummer, A.postcode, G.email, G.rol 
+        FROM Gebruiker G
+        INNER JOIN Adres A ON G.gebruiker_id = A.gebruiker_id";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -30,23 +29,18 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li><a href="product_overzicht.php">Available Meals</a></li>
-            <li><a href="employee_overzicht.php">Registered Employees</a></li>
-            <li><a href="logout.php">logout</a></li>
-        </ul>
-    </nav>
+    <?php require 'header.php' ?>
     <h1>Admin Dashboard</h1>
-    // Admin dashboard content goes here
-    <p><?php echo "Welcome, Admin " . $_SESSION['name'];  ?></p>
+    <p>Welcome, Admin <?php echo $_SESSION['name']; ?></p>
     <h2>Manage Users</h2>
 
     <table>
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Address</th>
+                <th>Street</th>
+                <th>House Number</th>
+                <th>Postcode</th>
                 <th>Email</th>
                 <th>Role</th>
                 <th>Action</th>
@@ -56,7 +50,9 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($users as $user) : ?>
                 <tr>
                     <td><?php echo $user['naam']; ?></td>
-                    <td><?php echo $user['adres']; ?></td>
+                    <td><?php echo $user['street']; ?></td>
+                    <td><?php echo $user['huisnummer']; ?></td>
+                    <td><?php echo $user['postcode']; ?></td>
                     <td><?php echo $user['email']; ?></td>
                     <td><?php echo $user['rol']; ?></td>
                     <td>
@@ -68,6 +64,8 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </tbody>
     </table>
+    <?php require 'footer.php' ?>
+
 </body>
 
 </html>

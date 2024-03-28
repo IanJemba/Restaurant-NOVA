@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <?php require 'header.php' ?>
     <h2>User Registration</h2>
     <form action="register_customer_process.php" method="POST">
         <label for="name">Name:</label><br>
@@ -31,6 +32,8 @@
 
         <button type="submit">Register</button>
     </form>
+    <?php require 'footer.php' ?>
+
 </body>
 
 </html>

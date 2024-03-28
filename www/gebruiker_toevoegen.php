@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <?php require 'header.php' ?>
     <form action="gebruiker_toevoegen_process.php" method="post">
         <h2>Add User</h2>
 
@@ -39,6 +40,8 @@
 
         <input type="submit" value="Add User">
     </form>
+    <?php require 'footer.php' ?>
+
 </body>
 
 </html>

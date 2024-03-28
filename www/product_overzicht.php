@@ -19,6 +19,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+    <?php require 'header.php' ?>
     <h2>Available Dishes and Drinks</h2>
 
     <table>
@@ -43,6 +44,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </tbody>
     </table>
+    <?php require 'footer.php' ?>
 </body>
 
 </html>

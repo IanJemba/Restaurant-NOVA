@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_delete_address->execute();
 
             // Delete user from the Gebruikers table
-            $sql_delete_user = "DELETE FROM Gebruikers WHERE gebruiker_id = :user_id";
+            $sql_delete_user = "DELETE FROM Gebruiker WHERE gebruiker_id = :user_id";
             $stmt_delete_user = $conn->prepare($sql_delete_user);
             $stmt_delete_user->bindParam(':user_id', $user_id);
             $stmt_delete_user->execute();
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Logout the user and redirect to a confirmation page
             session_destroy();
-            header("Location: account_deleted.php");
+            header("Location: loginpage.php");
             exit();
         } catch (Exception $e) {
             // Rollback the transaction if an error occurred
@@ -52,24 +52,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 }
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Account</title>
-</head>
-
-<body>
-    <h2>Delete Account</h2>
-    <p>Are you sure you want to delete your account?</p>
-    <form action="delete_account.php" method="POST">
-        <button type="submit" name="confirm">Yes, Delete My Account</button>
-        <button type="submit" name="cancel">No, Cancel</button>
-    </form>
-</body>
-
-</html>

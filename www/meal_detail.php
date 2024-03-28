@@ -35,6 +35,7 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
+    <?php require 'header.php' ?>
     <?php require 'header.php'; ?>
     <div class="container">
         <h2><?php echo $meal['naam']; ?></h2>

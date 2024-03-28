@@ -19,8 +19,15 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'customer') {
 </head>
 
 <body>
-    <li><a href="logout.php">logout</a></li>
-    <li><a href="delete_account.php"> Delete My Account</li>
+    <?php require 'header.php' ?>
+    <h2>Delete Account</h2>
+    <p>Are you sure you want to delete your account?</p>
+    <form action="delete_account.php" method="POST">
+        <button type="submit" name="confirm">Yes, Delete My Account</button>
+        <button type="submit" name="cancel">No, Cancel</button>
+    </form>
+    <?php require 'footer.php' ?>
+
 </body>
 
 </html>

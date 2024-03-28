@@ -9,7 +9,7 @@
 </head>
 
 <body>
-
+    <?php require 'header.php' ?>
     <form action="login_process.php" method="post">
         <h2>Login</h2>
         <label for="email">Email:</label>
@@ -20,6 +20,8 @@
 
         <input type="submit" value="Login">
     </form>
+    <?php require 'footer.php' ?>
+
 </body>
 
 </html>

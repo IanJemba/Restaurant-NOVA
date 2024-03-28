@@ -76,17 +76,7 @@
             </strong>
             <h1 style="color: whitesmoke ;">LaVida</h1>
         </div>
-        <nav>
-            <a href="homepage.php">Home</a>
-            <a href="menu.php">Menu</a>
-            <a href="create_menu.php">Create Menu</a>
-            <a href="meals.php">Meals</a>
-            <a href="add_dish.php">Add Dish</a>
-            <a href="loginpage.php">Login</a>
-            <a href="gebruiker_toevoegen.php">Add User</a>
-            <a href="employee_dashboard.php">Employee</a>
-
-        </nav>
+        <?php include 'nav.php'; ?>
     </header>
 </body>
 

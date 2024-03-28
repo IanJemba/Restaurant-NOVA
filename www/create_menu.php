@@ -33,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
+    <?php require 'header.php' ?>
     <h2>Create New Menu</h2>
     <?php if (isset($error)) : ?>
         <p>Error: <?php echo $error; ?></p>
@@ -64,6 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <button type="submit">Create Menu</button>
     </form>
+    <?php require 'footer.php' ?>
+
 </body>
 
 </html>

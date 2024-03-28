@@ -30,13 +30,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li><a href="product_overzicht.php">Available Meals</a></li>
-            <li><a href="employee_overzicht.php">Registered Employees</a></li>
-            <li><a href="logout.php">logout</a></li>
-        </ul>
-    </nav>
+    <?php require 'header.php' ?>
     <h2>Edit Dishes and Drinks</h2>
 
     <table>
@@ -75,6 +69,8 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <button type="submit">Create Table</button>
     </form>
+    <?php require 'footer.php' ?>
+
 </body>
 
 </html>
