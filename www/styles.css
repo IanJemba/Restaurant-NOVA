@@ -298,6 +298,11 @@ footer {
     text-decoration: none;
 }
 
+.edit-link {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
 .create-table-section {
     background-color: #f9f9f9;
     padding: 20px;
@@ -346,7 +351,8 @@ footer {
 .reservation-title {
     text-align: center;
     margin-bottom: 20px;
-
+    font-weight: bolder;
+    color: whitesmoke;
 }
 
 /* Style for table container */

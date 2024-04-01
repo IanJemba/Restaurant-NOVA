@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'database.php';
 
 $name = $_POST['name'];
@@ -20,7 +21,7 @@ if ($stmt->execute()) {
     // Get the inserted user ID
     $gebruiker_id = $conn->lastInsertId();
 
- 
+
     $sql_adres = "INSERT INTO Adres (gebruiker_id, street, huisnummer, postcode) VALUES (:gebruiker_id, :street, :huisnummer, :postcode)";
     $stmt_adres = $conn->prepare($sql_adres);
     $stmt_adres->bindParam(':gebruiker_id', $gebruiker_id);

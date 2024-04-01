@@ -23,6 +23,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Dashboard</title>
     <link rel="stylesheet" href="styles.css">
+
 </head>
 
 <body>
@@ -34,17 +35,18 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <p>You are logged in as a <?php echo $_SESSION['role']; ?></p>
         </div>
     </div>
-    <div class="container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <th>Available Stock</th>
-                    <th>Vegan</th>
-                    <th>Action</th>
-                </tr>
+    <table class="employee-table">
+        < <thead>
+            <tr>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Available Stock</th>
+                <th>Vegan</th>
+                <th>Action</th>
+            </tr>
+            </tr>
             </thead>
             <tbody>
                 <?php foreach ($products as $product) : ?>
@@ -54,14 +56,13 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <td><?php echo $product['categorie']; ?></td>
                         <td><?php echo $product['aantal_voorraad']; ?></td>
                         <td><?php echo ($product['is_vega'] == 'Yes') ? 'Yes' : 'No'; ?></td>
+                        <td><a href="edit_product.php?product_id=<?php echo $product['product_id']; ?>" class="edit-link">Edit</a></td>
                         <td><a href="delete_product.php?id=<?php echo $product['product_id']; ?>" class="delete-link">Delete</a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
-        </table>
+    </table>
 
-
-    </div>
     <div class="create-table-section">
         <form action="create_table_process.php" method="POST">
             <h2>Create a Table</h2>

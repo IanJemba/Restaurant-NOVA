@@ -33,10 +33,10 @@ $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <?php require 'header.php'; ?>
 
-    <div class="reservation-container">
+    <div>
         <h1 class="reservation-title">Confirmed Reservations</h1>
         <div class="table-container">
-            <table class="reservation-table">
+            <table class="employee-table">
                 <thead>
                     <tr>
                         <th>Reservation ID</th>
@@ -62,8 +62,8 @@ $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </table>
         </div>
 
-        <div class="reservation-form-container">
-            <h1>Make a Reservation for a Customer</h1>
+        <div class="form-container">
+            <h1 class="form-title">Make a Reservation for a Customer</h1>
             <form action="process_reservation.php" method="post">
                 <div class="form-group">
                     <label for="date">Date:</label>
@@ -110,7 +110,6 @@ $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 
-    <?php require 'footer.php'; ?>
 </body>
 
 </html>

@@ -39,7 +39,7 @@
                         <li><a href="logout.php">Logout</a></li>
                     <?php elseif ($_SESSION['role'] === 'admin') : ?>
                         <li><a href="admin_dashboard.php">Dashboard</a></li>
-                        <li><a href="gebruiker_toevoegen.php">Meals in Stock</a></li>
+                        <li><a href="gebruiker_toevoegen.php">Add User</a></li>
                         <li><a href="meals.php">Meals in Stock</a></li>
                         <li><a href="product_overzicht.php">Products</a></li>
                         <li><a href="employee_overzicht.php">Employees</a></li>

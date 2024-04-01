@@ -37,40 +37,39 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <p><strong>Email:</strong> <?php echo $_SESSION['email']; ?></p>
             <p>You are logged in as a <?php echo $_SESSION['role']; ?></p>
         </div>
-
-        <h2>Manage Users</h2>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Street</th>
-                    <th>House Number</th>
-                    <th>Postcode</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($users as $user) : ?>
-                    <tr>
-                        <td><?php echo $user['naam']; ?></td>
-                        <td><?php echo $user['street']; ?></td>
-                        <td><?php echo $user['huisnummer']; ?></td>
-                        <td><?php echo $user['postcode']; ?></td>
-                        <td><?php echo $user['email']; ?></td>
-                        <td><?php echo $user['rol']; ?></td>
-                        <td>
-                            <?php if ($user['rol'] != 'admin') : ?>
-                                <a href="delete_user.php?id=<?php echo $user['gebruiker_id']; ?>" class="delete-link">Delete</a>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
     </div>
+    <h2 style="text-align: center;">Manage Users</h2>
+    <table class="employee-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Street</th>
+                <th>House Number</th>
+                <th>Postcode</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($users as $user) : ?>
+                <tr>
+                    <td><?php echo $user['naam']; ?></td>
+                    <td><?php echo $user['street']; ?></td>
+                    <td><?php echo $user['huisnummer']; ?></td>
+                    <td><?php echo $user['postcode']; ?></td>
+                    <td><?php echo $user['email']; ?></td>
+                    <td><?php echo $user['rol']; ?></td>
+                    <td>
+                        <?php if ($user['rol'] != 'admin') : ?>
+                            <a href="delete_user.php?id=<?php echo $user['gebruiker_id']; ?>" class="delete-link">Delete</a>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
     <?php require 'footer.php' ?>
 </body>
 

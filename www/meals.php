@@ -9,7 +9,6 @@ $stmt->execute();
 // Check if search query is provided in the form submission
 if (isset($_POST['search'])) {
     $search = '%' . $_POST['search'] . '%';
-    // Construct SQL query with search filter
     $sql = "SELECT * FROM Product WHERE naam LIKE :searched";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':searched', $search);
@@ -104,10 +103,12 @@ $meals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
     <?php require 'header.php' ?>
-    <form class="search-form" action="meals.php" method="POST">
-        <input type="text" name="search" placeholder="Search for dishes">
-        <button type="submit">Search</button>
-    </form>
+    <?php if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'employee') : ?>
+        <form class="search-form" action="meals.php" method="POST">
+            <input type="text" name="search" placeholder="Search for dishes">
+            <button type="submit">Search</button>
+        </form>
+    <?php endif; ?>
 
     <div>
         <?php foreach ($meals as $meal) : ?>
@@ -121,8 +122,8 @@ $meals = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </a>
             </div>
         <?php endforeach; ?>
-        <?php require 'footer.php' ?>
     </div>
+    <?php require 'footer.php' ?>
 </body>
 
 </html>
