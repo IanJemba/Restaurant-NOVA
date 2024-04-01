@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,40 +8,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make a Reservation</title>
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 
 <body>
     <?php require 'header.php' ?>
-    <h1>Make a Reservation</h1>
-    <form action="process_reservation.php" method="post">
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required><br><br>
+    <div class="form-container">
+        <h1 class="form-title">Make a Reservation</h1>
+        <form action="process_reservation.php" method="post">
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
 
-        <label for="time">Time:</label>
-        <input type="time" id="time" name="time" required><br><br>
+            <div class="form-group">
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time" required>
+            </div>
 
-        <label for="persons">Number of Persons:</label>
-        <input type="number" id="persons" name="persons" min="1" required><br><br>
+            <div class="form-group">
+                <label for="persons">Number of Persons:</label>
+                <input type="number" id="persons" name="persons" min="1" required>
+            </div>
 
-        <label for="table">Select Table:</label>
-        <select id="table" name="table" required>
-            <?php
-            require 'database.php';
+            <div class="form-group">
+                <label for="table">Select Table:</label>
+                <select id="table" name="table" required>
+                    <?php
+                    require 'database.php';
 
-            $sql = "SELECT * FROM Tafel";
-            $stmt = $conn->prepare($sql);
-            $stmt->execute();
+                    $sql = "SELECT * FROM Tafel";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute();
 
-            $available_tables = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            // Loop through available tables and display them as options
-            foreach ($available_tables as $table) {
-                echo "<option value='" . $table['table_id'] . "'>Table " . $table['table_id'] . " (Seats: " . $table['seats'] . ")</option>";
-            }
-            ?>
-        </select><br><br>
+                    $available_tables = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    // Loop through available tables and display them as options
+                    foreach ($available_tables as $table) {
+                        echo "<option value='" . $table['table_id'] . "'>Table " . $table['table_id'] . " (Seats: " . $table['seats'] . ")</option>";
+                    }
+                    ?>
+                </select>
+            </div>
 
-        <input type="submit" value="Submit Reservation">
-    </form>
+            <button type="submit" class="form-submit">Submit Reservation</button>
+        </form>
+    </div>
     <?php require 'footer.php' ?>
 
 </body>

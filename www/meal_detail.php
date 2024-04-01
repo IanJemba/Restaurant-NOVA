@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require 'database.php';
 
 // Check if meal ID is provided in the URL
@@ -31,7 +33,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $meal['naam']; ?> Details</title>
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>

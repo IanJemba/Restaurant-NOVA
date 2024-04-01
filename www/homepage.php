@@ -15,7 +15,6 @@
         }
 
         .welcome {
-            background-image: url('https://mymexicanfood.com/wp-content/uploads/2023/10/mcn-thumbnail.jpg');
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -65,9 +64,9 @@
             <h1>Welcome to Viva La Vida</h1>
             <p>Experience the authentic flavors of Mexico!</p>
             <h2>Want to take a look at our Meals?</h2>
-            <button><a href="meals.php">Meals</a></button>
-            <h2>Or Check out our menu! </h2>
-            <button><a href="menukaart.php">Menu</a></button>
+            <button><a href="loginpage.php">Login</a></button>
+            <h2>No Account yet? </h2>
+            <button><a href="register_customer.php">Make an Account</a></button>
         </div>
     </div>
     <?php require 'footer.php' ?>

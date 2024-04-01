@@ -33,7 +33,7 @@ if ($stmt_user->execute()) {
 
     if ($stmt_address->execute()) {
         // Registration successful
-        header("Location: login.php"); // Redirect to login page
+        header("Location: loginpage.php"); // Redirect to login page
         exit();
     } else {
         // Registration failed
@@ -43,4 +43,3 @@ if ($stmt_user->execute()) {
     // Registration failed
     echo "Registration failed. Please try again.";
 }
-?>

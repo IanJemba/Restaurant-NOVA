@@ -5,65 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+
 </head>
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Times New Roman', Times, serif;
-    }
-
-    header {
-        background-color: #333;
-        color: white;
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .logo {
-        width: 200px;
-        height: auto;
-    }
-
-    .logo img {
-        width: 100%;
-        height: auto;
-    }
-
-    .name {
-        align-items: center;
-        margin-right: 900px;
-    }
-
-    .name h1 {
-        margin: 0;
-    }
-
-    .name h1:first-child {
-        color: whitesmoke;
-        margin-right: 10px;
-    }
-
-    .name h1:last-child {
-        color: gray;
-    }
-
-    nav {
-        display: flex;
-    }
-
-    nav a {
-        color: white;
-        text-decoration: none;
-        margin-left: 20px;
-    }
-
-    nav a:hover {
-        color: #ff7043;
-    }
-</style>
 
 <body>
     <header>
@@ -76,7 +20,39 @@
             </strong>
             <h1 style="color: whitesmoke ;">LaVida</h1>
         </div>
-        <?php include 'nav.php'; ?>
+        <nav>
+            <ul>
+                <!-- Session-Based Navigation Links -->
+                <?php if (isset($_SESSION['user_id'])) : ?>
+                    <?php if ($_SESSION['role'] === 'employee') : ?>
+                        <li><a href="employee_dashboard.php">Dashboard</a></li>
+                        <li><a href="confirm_reservation.php">Check Reservation</a></li>
+                        <li><a href="meals.php">Meals in Stock</a></li>
+                        <li><a href="register_customer.php">Add Customer</a></li>
+                        <li><a href="product_overzicht.php">Products</a></li>
+                        <li><a href="employee_overzicht.php">Employees</a></li>
+                        <li><a href="logout.php">Logout</a></li>
+                    <?php elseif ($_SESSION['role'] === 'customer') : ?>
+                        <li><a href="customer_dashboard.php">Dashboard</a></li>
+                        <li><a href="menu.php">Menu</a></li>
+                        <li><a href="reservationpage.php">Make Reservation</a></li>
+                        <li><a href="logout.php">Logout</a></li>
+                    <?php elseif ($_SESSION['role'] === 'admin') : ?>
+                        <li><a href="admin_dashboard.php">Dashboard</a></li>
+                        <li><a href="gebruiker_toevoegen.php">Meals in Stock</a></li>
+                        <li><a href="meals.php">Meals in Stock</a></li>
+                        <li><a href="product_overzicht.php">Products</a></li>
+                        <li><a href="employee_overzicht.php">Employees</a></li>
+                        <li><a href="logout.php">Logout</a></li>
+                    <?php endif; ?>
+                <?php else : ?>
+                    <!-- Static Navigation Links -->
+                    <li><a href="homepage.php">Home</a></li>
+                    <li><a href="register_customer.php">Create Account</a></li>
+                    <li><a href="loginpage.php">Login</a></li>
+                <?php endif; ?>
+            </ul>
+        </nav>
     </header>
 </body>
 

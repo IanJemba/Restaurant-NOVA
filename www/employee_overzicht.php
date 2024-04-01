@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Include the database connection file
 require 'database.php';
 
@@ -19,22 +21,22 @@ $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Overview</title>
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <?php require 'header.php' ?>
-    <h1>Employee Overview</h1>
+    <h1 class="page-title">Employee Overview</h1>
 
-    <table>
+    <table class="employee-table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Street</th>
-                <th>House Number</th>
-                <th>Postcode</th>
-                <th>Email</th>
-                <th>Role</th>
+                <th class="table-header">Name</th>
+                <th class="table-header">Street</th>
+                <th class="table-header">House Number</th>
+                <th class="table-header">Postcode</th>
+                <th class="table-header">Email</th>
+                <th class="table-header">Role</th>
             </tr>
         </thead>
         <tbody>

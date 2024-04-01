@@ -1,55 +1,23 @@
 <?php
+// Start session
 session_start();
 
-// Check if user is logged in and has employee role
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'employee') {
-    // Redirect to login page if not logged in as employee
-    header("Location: loginpage.php");
-    exit();
-}
-
-// Include your existing database connection script
+// Include database connection script
 require 'database.php';
 
-// Initialize variables
-$date = $time = $persons = $table = '';
-$confirmMessage = '';
+// Retrieve reservations data
+$sql = "SELECT R.*, U.naam 
+        FROM Reservering R
+        INNER JOIN Gebruiker U ON R.gebruiker_id = U.gebruiker_id";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Process form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $date = $_POST['date'];
-    $time = $_POST['time'];
-    $persons = $_POST['persons'];
-    $table = $_POST['table'];
-
-    // Check if all fields are filled
-    if (!empty($date) && !empty($time) && !empty($persons) && !empty($table)) {
-        // Perform reservation confirmation
-        $sql = "SELECT Reservering.*, Gebruiker.name 
-                FROM Reservering 
-                JOIN Gebruiker ON Reservering.gebruiker_id = Gebruiker.gebruiker_id 
-                WHERE Reservering.datum = :date AND Reservering.tijd = :time 
-                AND Reservering.aantal_personen = :persons AND Reservering.tafelnummer = :table";
-
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':date', $date);
-        $stmt->bindParam(':time', $time);
-        $stmt->bindParam(':persons', $persons);
-        $stmt->bindParam(':table', $table);
-        $stmt->execute();
-
-        $reservation = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($reservation) {
-            $confirmMessage = "Reservation confirmed successfully! User: " . $reservation['name'];
-        } else {
-            $confirmMessage = "Reservation not found.";
-        }
-    } else {
-        $confirmMessage = "Please fill in all fields.";
-    }
-}
+// Retrieve users with role "customer"
+$sql = "SELECT * FROM Gebruiker WHERE rol = 'customer'";
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -58,35 +26,91 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirm Reservation</title>
+    <title>Confirm Reservations</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <?php require 'header.php' ?>
+    <?php require 'header.php'; ?>
 
-    <h1>Confirm Reservation</h1>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required><br><br>
+    <div class="reservation-container">
+        <h1 class="reservation-title">Confirmed Reservations</h1>
+        <div class="table-container">
+            <table class="reservation-table">
+                <thead>
+                    <tr>
+                        <th>Reservation ID</th>
+                        <th>User</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Number of Persons</th>
+                        <th>Table Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($reservations as $reservation) : ?>
+                        <tr>
+                            <td><?php echo $reservation['reservering_id']; ?></td>
+                            <td><?php echo $reservation['naam']; ?></td>
+                            <td><?php echo $reservation['datum']; ?></td>
+                            <td><?php echo $reservation['tijd']; ?></td>
+                            <td><?php echo $reservation['aantal_personen']; ?></td>
+                            <td><?php echo $reservation['tafelnummer']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
 
-        <label for="time">Time:</label>
-        <input type="time" id="time" name="time" required><br><br>
+        <div class="reservation-form-container">
+            <h1>Make a Reservation for a Customer</h1>
+            <form action="process_reservation.php" method="post">
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
 
-        <label for="persons">Number of Persons:</label>
-        <input type="number" id="persons" name="persons" min="1" required><br><br>
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
 
-        <label for="table">Table Number:</label>
-        <input type="number" id="table" name="table" min="1" required><br><br>
+                <div class="form-group">
+                    <label for="persons">Number of Persons:</label>
+                    <input type="number" id="persons" name="persons" min="1" required>
+                </div>
 
-        <input type="submit" value="Confirm Reservation">
-    </form>
+                <div class="form-group">
+                    <label for="table">Select Table:</label>
+                    <select id="table" name="table" required>
+                        <?php
+                        require 'database.php';
 
-    <!-- Display confirmation message -->
-    <?php if (!empty($confirmMessage)) : ?>
-        <p><?php echo $confirmMessage; ?></p>
-    <?php endif; ?>
-    <?php require 'footer.php' ?>
+                        $sql = "SELECT * FROM Tafel";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->execute();
 
+                        $available_tables = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        // Loop through available tables and display them as options
+                        foreach ($available_tables as $table) {
+                            echo "<option value='" . $table['table_id'] . "'>Table " . $table['table_id'] . " (Seats: " . $table['seats'] . ")</option>";
+                        }
+                        ?>
+                    </select>
+                    <div class="form-group">
+                        <label for="customer">Select Customer:</label>
+                        <select id="customer" name="customer" required>
+                            <?php foreach ($customers as $customer) : ?>
+                                <option value="<?php echo $customer['gebruiker_id']; ?>"><?php echo $customer['naam']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-submit">Submit Reservation</button>
+            </form>
+        </div>
+    </div>
+
+    <?php require 'footer.php'; ?>
 </body>
 
 </html>

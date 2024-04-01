@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
     // Execute the SQL statement
     if ($stmt->execute()) {
         // Product successfully deleted, redirect back to the employee dashboard
-        header("Location: employee-dashboard.php");
+        header("Location: product_overzicht.php");
         exit();
     } else {
         // Error occurred while deleting the product

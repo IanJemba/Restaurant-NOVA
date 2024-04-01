@@ -1,4 +1,5 @@
 <?php
+
 require 'database.php';
 
 // Check if form is submitted

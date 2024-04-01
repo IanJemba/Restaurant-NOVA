@@ -5,23 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <?php require 'header.php' ?>
-    <form action="login_process.php" method="post">
-        <h2>Login</h2>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+    <div class="form-container">
+        <h2 class="form-title">Login</h2>
+        <form action="login_process.php" method="post">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
 
-        <input type="submit" value="Login">
-    </form>
+            <button type="submit" class="form-submit">Login</button>
+            <div class="form-link">
+                <p>Are you a customer with no account? <a href="register_customer.php">Register</a></p>
+            </div>
+        </form>
+    </div>
     <?php require 'footer.php' ?>
-
 </body>
 
 </html>

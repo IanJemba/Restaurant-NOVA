@@ -8,9 +8,9 @@ if (!isset($_SESSION['user_id']) || ($_SESSION['role'] !== 'employee' && $_SESSI
     exit();
 }
 
-
 // Include your existing database connection script
 require 'database.php';
+
 // Process reservation form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -18,39 +18,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = $_POST['date'];
     $time = $_POST['time'];
     $persons = $_POST['persons'];
+    $table = $_POST['table']; // Retrieve selected table number from the form
 
-
-
-    $sql = "SELECT * FROM Tafel WHERE seats >=:persons";
-
+    // Check if the selected table has enough seats
+    $sql = "SELECT * FROM Tafel WHERE table_id = :table AND seats >= :persons";
     $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':table', $table);
     $stmt->bindParam(':persons', $persons);
     $stmt->execute();
+    $table_info = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $available_tables = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($table_info) { // If the selected table has enough seats
+        // Get gebruiker_id from session
+        $gebruiker_id = $_SESSION['user_id'];
 
+        // Prepare SQL statement
+        $stmt = $conn->prepare("INSERT INTO Reservering (gebruiker_id, datum, tijd, aantal_personen, tafelnummer) VALUES (:gebruiker_id, :datum, :tijd, :aantal_personen, :tafelnummer)");
 
+        // Bind parameters
+        $stmt->bindParam(':gebruiker_id', $gebruiker_id);
+        $stmt->bindParam(':datum', $date);
+        $stmt->bindParam(':tijd', $time);
+        $stmt->bindParam(':aantal_personen', $persons);
+        $stmt->bindParam(':tafelnummer', $table); // Assign the selected table number to the statement
 
-    // Get gebruiker_id from session
-    $gebruiker_id = $_SESSION['user_id'];
-
-    // Prepare SQL statement
-    $stmt = $conn->prepare("INSERT INTO Reservering (gebruiker_id, datum, tijd, aantal_personen, tafelnummer) VALUES (:gebruiker_id, :datum, :tijd, :aantal_personen, :tafelnummer)");
-
-    // Bind parameters
-    $stmt->bindParam(':gebruiker_id', $gebruiker_id);
-    $stmt->bindParam(':datum', $date);
-    $stmt->bindParam(':tijd', $time);
-    $stmt->bindParam(':aantal_personen', $persons);
-    $stmt->bindParam(':tafelnummer', $table);
-
-    // Execute the prepared statement
-    if ($stmt->execute()) {
-        echo "Reservation made successfully!";
+        // Execute the prepared statement
+        if ($stmt->execute()) {
+            echo "Reservation made successfully!";
+        } else {
+            echo "Error: Unable to execute statement.";
+        }
     } else {
-        echo "Error: Unable to execute statement.";
+        echo "Error: The selected table does not have enough seats.";
     }
 }
-
-// Close connection (if not handled automatically by your existing connection script)
-//$conn = null;
