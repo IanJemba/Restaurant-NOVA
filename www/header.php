@@ -28,6 +28,7 @@
                         <li><a href="employee_dashboard.php">Dashboard</a></li>
                         <li><a href="confirm_reservation.php">Check Reservation</a></li>
                         <li><a href="meals.php">Meals in Stock</a></li>
+                        <li><a href="add_dish.php">Add Dish</a></li>
                         <li><a href="register_customer.php">Add Customer</a></li>
                         <li><a href="product_overzicht.php">Products</a></li>
                         <li><a href="employee_overzicht.php">Employees</a></li>

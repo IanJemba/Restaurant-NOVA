@@ -30,7 +30,7 @@ if ($stmt->execute()) {
     $stmt_adres->bindParam(':postcode', $postcode);
 
     if ($stmt_adres->execute()) {
-        header("Location: homepage.php");
+        header("Location: admin_dashboard.php");
         exit;
     } else {
         echo "Failed to insert address information";
